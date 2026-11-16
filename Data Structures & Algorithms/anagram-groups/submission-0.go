@@ -1,16 +1,20 @@
-import (
-	"slices"
-	"maps"
-)
+func groupAnagrams(strs []string) [][]string {
 
-func groupAnagrams(strs []string) [][]string { 
-	hash := make(map[string][]string)
+    groups := make(map[[26]int][]string)
 
-    for _, str := range strs{
-        temp := []rune(str)
-		slices.Sort(temp)
-        hash[string(temp)] = append(hash[string(temp)], str)
+	for _, s := range strs{
+		var key [26]int
+		for _, char := range s{
+		    key[char-'a']++
+		}
+		groups[key] = append(groups[key], s)
 	}
 
-	return slices.Collect(maps.Values(hash))
+	result := make([][]string, 0 ,len(groups))
+
+	for _, g := range groups{
+		result = append(result, g)
+	}
+
+	return result
 }
