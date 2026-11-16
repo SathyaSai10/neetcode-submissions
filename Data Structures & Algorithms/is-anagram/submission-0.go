@@ -1,8 +1,18 @@
-import "slices"
 func isAnagram(s string, t string) bool {
-	ana1 := []rune(s)
-	ana2 := []rune(t)
-	slices.Sort(ana1) 
-	slices.Sort(ana2)
-	return slices.Equal(ana1, ana2)
+    anagram := make(map[rune]int, len(s))
+	for _, char := range s{
+		anagram[char]++
+	}
+	for _, char1 := range t{
+		anagram[char1]--
+		if anagram[char1] < 0{
+			return false
+		}
+	}
+	for _, char2 := range anagram{
+		if char2 != 0{
+			return false
+		}
+	}
+	return true
 }
